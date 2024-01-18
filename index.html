@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortener</title>
+    <style>
+        body {
+            background-color: #fceae1; /* pastel orange */
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            color: #2e4057; /* dark blue-gray */
+        }
+        form {
+            display: inline-block;
+            text-align: left;
+            margin-top: 20px;
+        }
+        label {
+            color: #2e4057;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        input {
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50; /* green */
+            color: white;
+            cursor: pointer;
+        }
+        p {
+            color: #2e4057;
+        }
+    </style>
+</head>
+<body>
+    <h1>Minimalist URL Shortener</h1>
+
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+
+    <form action="{{ url_for('shorten') }}" method="post">
+        <label for="url">Enter URL:</label>
+        <input type="url" name="url" required>
+        <br>
+        <label for="custom_alias">Custom Alias (Optional):</label>
+        <input type="text" name="custom_alias">
+        <br>
+        <input type="submit" value="Shorten">
+    </form>
+
+    {% if original_url and shortened_url %}
+        <p>Original URL: {{ original_url }}</p>
+        <p>Shortened URL: <a href="{{ shortened_url }}" target="_blank">{{ shortened_url }}</a></p>
+    {% endif %}
+
+    <p><a href="{{ url_for('history') }}">View Saved URLs</a></p>
+</body>
+</html>
